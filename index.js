@@ -225,20 +225,20 @@ let allDesigns = {
                 "#780089",
             ]);
 
-            const chevron_angle = 0.7896347613;
-            const chevron_width = canvas.width * 0.08;
+            const chevronAngle = 0.7896347613;
+            const chevronWidth = canvas.width * 0.08;
 
             // Ratios taken from svg version of flag
             // Black stripe
             ctx.fillStyle = "#000000";
             ctx.beginPath();
             ctx.moveTo(0, 0);
-            ctx.lineTo(chevron_width * 2, 0);
+            ctx.lineTo(chevronWidth * 2, 0);
             ctx.lineTo(
-                chevron_width * 2 + canvas.height / 2 / Math.tan(chevron_angle),
+                chevronWidth * 2 + canvas.height / 2 / Math.tan(chevronAngle),
                 canvas.height / 2,
             );
-            ctx.lineTo(chevron_width * 2, canvas.height);
+            ctx.lineTo(chevronWidth * 2, canvas.height);
             ctx.lineTo(0, canvas.height);
             ctx.fill();
 
@@ -246,12 +246,12 @@ let allDesigns = {
             ctx.fillStyle = "#613915";
             ctx.beginPath();
             ctx.moveTo(0, 0);
-            ctx.lineTo(chevron_width, 0);
+            ctx.lineTo(chevronWidth, 0);
             ctx.lineTo(
-                chevron_width + canvas.height / 2 / Math.tan(chevron_angle),
+                chevronWidth + canvas.height / 2 / Math.tan(chevronAngle),
                 canvas.height / 2,
             );
-            ctx.lineTo(chevron_width, canvas.height);
+            ctx.lineTo(chevronWidth, canvas.height);
             ctx.lineTo(0, canvas.height);
             ctx.fill();
 
@@ -260,7 +260,7 @@ let allDesigns = {
             ctx.beginPath();
             ctx.moveTo(0, 0);
             ctx.lineTo(
-                canvas.height / 2 / Math.tan(chevron_angle),
+                canvas.height / 2 / Math.tan(chevronAngle),
                 canvas.height / 2,
             );
             ctx.lineTo(0, canvas.height);
@@ -269,24 +269,24 @@ let allDesigns = {
             // Light pink stripe
             ctx.fillStyle = "#ffafc8";
             ctx.beginPath();
-            ctx.moveTo(-chevron_width, 0);
+            ctx.moveTo(-chevronWidth, 0);
             ctx.lineTo(
-                -chevron_width + canvas.height / 2 / Math.tan(chevron_angle),
+                -chevronWidth + canvas.height / 2 / Math.tan(chevronAngle),
                 canvas.height / 2,
             );
-            ctx.lineTo(-chevron_width, canvas.height);
+            ctx.lineTo(-chevronWidth, canvas.height);
             ctx.fill();
 
             // White stripe
             ctx.fillStyle = "#ffffff";
             ctx.beginPath();
-            ctx.moveTo(-2 * chevron_width, 0);
+            ctx.moveTo(-2 * chevronWidth, 0);
             ctx.lineTo(
-                -2 * chevron_width +
-                    canvas.height / 2 / Math.tan(chevron_angle),
+                -2 * chevronWidth +
+                    canvas.height / 2 / Math.tan(chevronAngle),
                 canvas.height / 2,
             );
-            ctx.lineTo(-2 * chevron_width, canvas.height);
+            ctx.lineTo(-2 * chevronWidth, canvas.height);
             ctx.fill();
         },
     ),
