@@ -43,7 +43,9 @@ section#editing canvas#main-canvas {
 section#editing canvas#main-canvas.dragover {
     opacity: 0.5;
 
-    box-shadow: 0 0 10px 5px #888888, inset 0px 0px 50px 10px #333333;
+    box-shadow:
+        0 0 10px 5px #888888,
+        inset 0px 0px 50px 10px #333333;
 }
 
 section#editing div#controls {
