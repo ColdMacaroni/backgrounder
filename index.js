@@ -42,6 +42,16 @@ function drawStripes(ctx, stripes) {
     }
 }
 
+/**
+ * Convenience higher order function that returns a call to drawStripes
+ * @param {Array<string>} stripes Array of ctx.fillStyle values.
+ */
+function drawStripesFunc(stripes) {
+    return (ctx) => {
+        drawStripes(ctx, stripes);
+    };
+}
+
 function resetStripesElement() {
     stripes.innerHTML = "";
 }
@@ -50,11 +60,8 @@ let allDesigns = {
     none: new Background("None", resetStripesElement, (ctx) => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     }),
-    trans: new Background("Trans", resetStripesElement, (ctx) => {
-        drawStripes(ctx, ["#5bcffa", "#f5abb9", "white", "#f5abb9", "#5bcffa"]);
-    }),
 
-    "custom-image": new Background(
+    "custom-image": new Background( //{{{
         "Custom Image",
         () => {
             stripes.innerHTML = "TODO";
@@ -77,9 +84,9 @@ let allDesigns = {
                 canvas.height / 2,
             );
         },
-    ),
+    ), //}}}
 
-    "custom-javascript": new Background(
+    "custom-javascript": new Background( //{{{
         "Custom JavaScript",
         () => {
             stripes.innerHTML = "TODO AGAIN";
@@ -123,6 +130,40 @@ let allDesigns = {
             );
             ctx.stroke();
         },
+    ), //}}}
+    rainbow: new Background(
+        "Rainbow",
+        resetStripesElement,
+        drawStripesFunc([
+            "#e60000",
+            "#ff8e00",
+            "#ffef00",
+            "#00821b",
+            "#004bff",
+            "#780089",
+        ]),
+    ),
+    lesbian: new Background(
+        "Lesbian (5)",
+        resetStripesElement,
+        drawStripesFunc([
+            "#d62900",
+            "#ff9b55",
+            "#ffffff",
+            "#d462a6",
+            "#a50062",
+        ]),
+    ),
+    trans: new Background(
+        "Trans",
+        resetStripesElement,
+        drawStripesFunc([
+            "#5bcffa",
+            "#f5abb9",
+            "#ffffff",
+            "#f5abb9",
+            "#5bcffa",
+        ]),
     ),
 };
 
