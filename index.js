@@ -84,7 +84,45 @@ let allDesigns = {
         () => {
             stripes.innerHTML = "TODO AGAIN";
         },
-        (ctx) => {},
+        (ctx) => {
+            ctx.fillStyle = "black";
+            ctx.beginPath();
+            ctx.ellipse(
+                canvas.width / 4,
+                canvas.height / 5,
+                canvas.width / 10,
+                canvas.height / 10,
+                0,
+                0,
+                2 * Math.PI,
+            );
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.ellipse(
+                (canvas.width * 3) / 4,
+                canvas.height / 5,
+                canvas.width / 10,
+                canvas.height / 10,
+                0,
+                0,
+                2 * Math.PI,
+            );
+            ctx.fill();
+
+            ctx.lineWidth = canvas.width / 30;
+            ctx.beginPath();
+            ctx.ellipse(
+                canvas.width / 2,
+                (canvas.height * 3) / 4,
+                canvas.width / 4,
+                canvas.height / 4,
+                0,
+                Math.PI,
+                0,
+            );
+            ctx.stroke();
+        },
     ),
 };
 
