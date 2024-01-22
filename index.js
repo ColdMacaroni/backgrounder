@@ -22,9 +22,14 @@ function bodyLoad() {
     }
 
     canvas.ondrop = (event) => {
-        event.target.classList.remove("dragover");
         event.preventDefault();
+        event.target.classList.remove("dragover");
+
         let file = event.dataTransfer.files[0];
+
+        // Update input box
+        document.getElementById("image-input").files = event.dataTransfer.files;
+
         loadImage(file);
     };
 }

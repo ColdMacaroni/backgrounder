@@ -9,13 +9,22 @@ section {
     margin: 10px auto;
 }
 
-section#image-input {
+section#input {
     width: fit-content;
     text-align: center;
 }
 
-section#image-input input {
+/* TODO: Get rid of the weird margin-right */
+section#input input {
     margin-left: 0.4em;
+
+    /* HACK: This doesn't fix anything. Good god */
+    /* Check https://stackoverflow.com/a/70528034 */
+    margin-right: -4em;
+}
+
+section#input p {
+    margin: 0;
 }
 
 section#editing {

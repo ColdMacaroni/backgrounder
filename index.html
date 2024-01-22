@@ -8,15 +8,16 @@
         <script src="index.js"></script>
     </head>
     <body onload="bodyLoad()">
-        <section id="image-input">
+        <section id="input">
             <label for="image">Choose your image: </label>
             <input
                 type="file"
-                id="image"
+                id="image-input"
                 name="image"
                 onchange="imageUploaded(event)"
                 accept="image/png, image/jpeg"
             />
+            <p><small>Tip: You can drag and drop into the preview</small></p>
         </section>
         <img src='' id="balls">
         <section id="editing">
