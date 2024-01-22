@@ -88,6 +88,9 @@ function bodyLoad() {
     dropdown = document.getElementById("background-select");
     stripes = document.getElementById("stripes");
 
+    // Start with a square canvas bc it looks better.
+    canvas.height = canvas.width;
+
     // From https://stackoverflow.com/a/38968948
     // https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Drag_operations#droptargets
     // Allow drag and drop image
@@ -125,6 +128,22 @@ function enableCanvas() {
     redrawCanvas();
 }
 image.onload = enableCanvas;
+
+function saveCanvas() {
+    // Adapted from: https://stackoverflow.com/a/58652379
+    let downloadLink = document.createElement("a");
+
+    downloadLink.setAttribute(
+        "download",
+        `backgrounder-${Math.round(Math.random() * 9999)}.png`,
+    );
+
+    canvas.toBlob(function (blob) {
+        let url = URL.createObjectURL(blob);
+        downloadLink.setAttribute("href", url);
+        downloadLink.click();
+    });
+}
 
 /**
  * Redraws the canvas stack: Background -> User Image -> Overlay?

@@ -21,7 +21,10 @@
         </section>
         <img src='' id="balls">
         <section id="editing">
-            <canvas id="main-canvas"></canvas>
+            <div id="canvas-holder">
+                <canvas id="main-canvas"></canvas>
+                <button id="save-image" onclick="saveCanvas(event)">Save</button>
+            </div>
             <div id="controls">
                 <label for="background-select">Background: </label>
                 <select id="background-select" onchange="updateDropdown(event)">

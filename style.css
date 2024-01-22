@@ -33,11 +33,22 @@ section#editing {
     flex-direction: row;
 }
 
+section#editing div#canvas-holder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* grid-template-columns: 1fr; */
+}
+
+section#editing button#save-image {
+    width: fit-content;
+}
 section#editing canvas#main-canvas {
     margin: 2em;
     box-shadow: 0 0 10px 5px #888888;
-    aspect-ratio: 1 / 1;
-    width: 30%;
+    /* aspect-ratio: 1 / 1; */
+    max-width: 40vw;
+    /* width: 100%; */
 }
 
 section#editing canvas#main-canvas.dragover {
