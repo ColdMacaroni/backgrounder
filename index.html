@@ -24,7 +24,7 @@
             <canvas id="main-canvas"></canvas>
             <div id="controls">
                 <label for="background-select">Background: </label>
-                <select id="background-select">
+                <select id="background-select" onchange="updateDropdown(event)">
                     <option value="none">None</option>
                     <option value="test1">Test 1</option>
                     <option value="test2">Test 2</option>

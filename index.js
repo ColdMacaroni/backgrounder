@@ -1,8 +1,17 @@
 /** @type {HTMLCanvasElement} */
 let canvas;
 
-/** @type {HTMLImageElement} */
+/**
+ * @description Used to download the image given by the user
+ * @type {HTMLImageElement}
+ * */
 let image = new Image();
+
+/** @type {HTMLOListElement}*/
+let stripes;
+
+/** @type {HTMLSelectElement} */
+let dropdown;
 
 /** @type {CanvasRenderingContext2D} */
 let context;
@@ -20,26 +29,55 @@ class Background {
 
 let allDesigns = {
     none: new Background(
-        () => {},
-        () => {},
+        () => {
+            stripes.innerHTML = "";
+        },
+        (ctx) => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        },
     ),
     test1: new Background(
         () => {
-            console.log("You selected test1");
+            stripes.innerHTML = "<li>Whatt!! Test 1!?!</li>";
         },
         (ctx) => {
             ctx.fillStyle = "green";
-            ctx.fill();
+            // ctx.fill();
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
         },
     ),
 
     test2: new Background(
         () => {
-            console.log("You selected test2");
+            stripes.innerHTML = "<li>Omg you picked test 2</li>";
         },
         (ctx) => {
             ctx.fillStyle = "red";
-            ctx.fill();
+            // ctx.fill();
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        },
+    ),
+    "custom-image": new Background(
+        () => {
+            stripes.innerHTML = "TODO";
+        },
+        (ctx) => {
+            ctx.fillStyle = "#ff00dc";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "black";
+            ctx.fillRect(
+                canvas.width / 2,
+                0,
+                canvas.width / 2,
+                canvas.height / 2,
+            );
+            ctx.fillRect(
+                0,
+                canvas.height / 2,
+                canvas.width / 2,
+                canvas.height / 2,
+            );
         },
     ),
 };
@@ -47,6 +85,8 @@ let allDesigns = {
 function bodyLoad() {
     canvas = document.getElementById("main-canvas");
     context = canvas.getContext("2d");
+    dropdown = document.getElementById("background-select");
+    stripes = document.getElementById("stripes");
 
     // From https://stackoverflow.com/a/38968948
     // https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Drag_operations#droptargets
@@ -90,8 +130,9 @@ image.onload = enableCanvas;
  * Redraws the canvas stack: Background -> User Image -> Overlay?
  */
 function redrawCanvas() {
-    // allDesigns[fromdropdown](context);
-    context.drawImage(image, 0, 0, canvas.width, canvas.height);
+    allDesigns[dropdown.value].draw(context);
+    console.log(allDesigns[dropdown.value]);
+    context.drawImage(image, 0, 0);
 }
 
 /**
@@ -100,6 +141,11 @@ function redrawCanvas() {
  */
 function disableCanvas() {
     canvas.width = "30%";
+}
+
+function updateDropdown(_event) {
+    allDesigns[dropdown.value].setup();
+    redrawCanvas();
 }
 
 function imageUploaded(event) {
