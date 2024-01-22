@@ -424,6 +424,18 @@ let allDesigns = {
         resetStripesElement,
         drawStripesFunc(["#000000", "#a5a5a5", "#ffffff", "#810081"]),
     ),
+
+    aromantic: new Background(
+        "Aromantic",
+        resetStripesElement,
+        drawStripesFunc([
+            "#3aa740",
+            "#a8d47a",
+            "#ffffff",
+            "#ababab",
+            "#000000",
+        ]),
+    ),
 };
 
 function bodyLoad() {
