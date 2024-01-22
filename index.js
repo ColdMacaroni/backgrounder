@@ -282,8 +282,7 @@ let allDesigns = {
             ctx.beginPath();
             ctx.moveTo(-2 * chevronWidth, 0);
             ctx.lineTo(
-                -2 * chevronWidth +
-                    canvas.height / 2 / Math.tan(chevronAngle),
+                -2 * chevronWidth + canvas.height / 2 / Math.tan(chevronAngle),
                 canvas.height / 2,
             );
             ctx.lineTo(-2 * chevronWidth, canvas.height);
