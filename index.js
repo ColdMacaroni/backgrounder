@@ -32,9 +32,9 @@ function bodyLoad() {
         event.target.classList.add("dragover");
     };
 
-    canvas.ondragleave =(event) => {
+    canvas.ondragleave = (event) => {
         event.target.classList.remove("dragover");
-    }
+    };
 
     canvas.ondrop = (event) => {
         event.preventDefault();
