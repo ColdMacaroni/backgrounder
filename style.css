@@ -52,10 +52,11 @@ section#editing div#controls {
     border-radius: 10px;
     width: 100%;
 
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    /* display: grid; */
+    /* grid-template-columns: 1fr 1fr; */
+    /* gap: 10px; */
 }
 
-section#editing div#controls ol#stripes {
+section#editing div#controls select#controls {
+    height: fit-content;
 }
