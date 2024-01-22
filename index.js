@@ -378,6 +378,41 @@ let allDesigns = {
         drawStripesFunc(["#fff42f", "#292929", "#9c59d1", "#fefefe"]),
     ),
 
+    intersex: new Background("Intersex", resetStripesElement, (ctx) => {
+        ctx.fillStyle = "#ffd800";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Ratio from svg on wikipedia
+        const outerRad = (Math.min(canvas.height, canvas.width) * 43) / 150;
+        const innerRad = Math.min(canvas.height, canvas.width) * 0.2025;
+
+        ctx.fillStyle = "#7902aa";
+        ctx.beginPath();
+        ctx.ellipse(
+            canvas.width / 2,
+            canvas.height / 2,
+            outerRad,
+            outerRad,
+            0,
+            0,
+            2 * Math.PI,
+        );
+        ctx.fill();
+
+        ctx.fillStyle = "#ffd800";
+        ctx.beginPath();
+        ctx.ellipse(
+            canvas.width / 2,
+            canvas.height / 2,
+            innerRad,
+            innerRad,
+            0,
+            0,
+            2 * Math.PI,
+        );
+        ctx.fill();
+    }),
+
     pansexual: new Background(
         "Pansexual",
         resetStripesElement,
