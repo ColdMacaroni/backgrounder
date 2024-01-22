@@ -1,27 +1,52 @@
 /** @type {HTMLCanvasElement} */
 let canvas;
 
-/**
- * @description The div that holds all the settings and such
- * @type {HTMLDivElement} */
-let controls;
-
 /** @type {HTMLImageElement} */
 let image = new Image();
 
 /** @type {CanvasRenderingContext2D} */
 let context;
 
+class Background {
+    /**
+     * @param {function(): void} setup The function called once when this is selected.
+     * @param {function(CanvasRenderingContext2D): void} draw The function called when redrawing.
+     */
+    constructor(setup, draw) {
+        this.setup = setup;
+        this.draw = draw;
+    }
+}
+
 let allDesigns = {
-    whatevre: function (ctx) {
-        // do some drawing;
-    },
+    none: new Background(
+        () => {},
+        () => {},
+    ),
+    test1: new Background(
+        () => {
+            console.log("You selected test1");
+        },
+        (ctx) => {
+            ctx.fillStyle = "green";
+            ctx.fill();
+        },
+    ),
+
+    test2: new Background(
+        () => {
+            console.log("You selected test2");
+        },
+        (ctx) => {
+            ctx.fillStyle = "red";
+            ctx.fill();
+        },
+    ),
 };
 
 function bodyLoad() {
     canvas = document.getElementById("main-canvas");
     context = canvas.getContext("2d");
-    controls = document.getElementById("controls");
 
     // From https://stackoverflow.com/a/38968948
     // https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Drag_operations#droptargets
@@ -65,6 +90,7 @@ image.onload = enableCanvas;
  * Redraws the canvas stack: Background -> User Image -> Overlay?
  */
 function redrawCanvas() {
+    // allDesigns[fromdropdown](context);
     context.drawImage(image, 0, 0, canvas.width, canvas.height);
 }
 
