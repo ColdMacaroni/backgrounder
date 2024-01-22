@@ -92,6 +92,7 @@ let allDesigns = {
             stripes.innerHTML = "TODO AGAIN";
         },
         (ctx) => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = "black";
             ctx.beginPath();
             ctx.ellipse(
@@ -131,6 +132,7 @@ let allDesigns = {
             ctx.stroke();
         },
     ), //}}}
+
     rainbow: new Background(
         "Rainbow",
         resetStripesElement,
@@ -143,7 +145,153 @@ let allDesigns = {
             "#780089",
         ]),
     ),
-    lesbian: new Background(
+
+    "progress-pride-ratio": new Background(
+        "Progress Pride (Ratio)",
+        resetStripesElement,
+        (ctx) => {
+            // Background rainbow
+            drawStripes(ctx, [
+                "#e60000",
+                "#ff8e00",
+                "#ffef00",
+                "#00821b",
+                "#004bff",
+                "#780089",
+            ]);
+
+            // Ratios taken from svg version of flag
+            // Black stripe
+            ctx.fillStyle = "#000000";
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(canvas.width * 0.16, 0);
+            ctx.lineTo(canvas.width * 0.4773, canvas.height / 2);
+            ctx.lineTo(canvas.width * 0.16, canvas.height);
+            ctx.lineTo(0, canvas.height);
+            ctx.fill();
+
+            // Brown stripe
+            ctx.fillStyle = "#613915";
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(canvas.width * 0.08, 0);
+            ctx.lineTo(canvas.width * 0.3973, canvas.height / 2);
+            ctx.lineTo(canvas.width * 0.08, canvas.height);
+            ctx.lineTo(0, canvas.height);
+            ctx.fill();
+
+            // Light blue stripe
+            ctx.fillStyle = "#74d7ee";
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(canvas.width * 0.3173, canvas.height / 2);
+            ctx.lineTo(0, canvas.height);
+            ctx.fill();
+
+            // Light pink stripe
+            ctx.fillStyle = "#ffafc8";
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(canvas.width * -0.08, 0);
+            ctx.lineTo(canvas.width * 0.2373, canvas.height / 2);
+            ctx.lineTo(canvas.width * -0.08, canvas.height);
+            ctx.lineTo(0, canvas.height);
+            ctx.fill();
+
+            // White stripe
+            ctx.fillStyle = "#ffffff";
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(canvas.width * -0.16, 0);
+            ctx.lineTo(canvas.width * 0.1573, canvas.height / 2);
+            ctx.lineTo(canvas.width * -0.16, canvas.height);
+            ctx.lineTo(0, canvas.height);
+            ctx.fill();
+        },
+    ),
+
+    "progress-pride-angle": new Background(
+        "Progress Pride (Angle)",
+        resetStripesElement,
+        (ctx) => {
+            // Background rainbow
+            drawStripes(ctx, [
+                "#e60000",
+                "#ff8e00",
+                "#ffef00",
+                "#00821b",
+                "#004bff",
+                "#780089",
+            ]);
+
+            const chevron_angle = 0.7896347613;
+            const chevron_width = canvas.width * 0.08;
+
+            // Ratios taken from svg version of flag
+            // Black stripe
+            ctx.fillStyle = "#000000";
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(chevron_width * 2, 0);
+            ctx.lineTo(
+                chevron_width * 2 + canvas.height / 2 / Math.tan(chevron_angle),
+                canvas.height / 2,
+            );
+            ctx.lineTo(chevron_width * 2, canvas.height);
+            ctx.lineTo(0, canvas.height);
+            ctx.fill();
+
+            // Brown stripe
+            ctx.fillStyle = "#613915";
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(chevron_width, 0);
+            ctx.lineTo(
+                chevron_width + canvas.height / 2 / Math.tan(chevron_angle),
+                canvas.height / 2,
+            );
+            ctx.lineTo(chevron_width, canvas.height);
+            ctx.lineTo(0, canvas.height);
+            ctx.fill();
+
+            // Light blue stripe
+            ctx.fillStyle = "#74d7ee";
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(
+                canvas.height / 2 / Math.tan(chevron_angle),
+                canvas.height / 2,
+            );
+            ctx.lineTo(0, canvas.height);
+            ctx.fill();
+
+            // Light pink stripe
+            ctx.fillStyle = "#ffafc8";
+            ctx.beginPath();
+            ctx.moveTo(-chevron_width, 0);
+            ctx.lineTo(
+                -chevron_width + canvas.height / 2 / Math.tan(chevron_angle),
+                canvas.height / 2,
+            );
+            ctx.lineTo(-chevron_width, canvas.height);
+            ctx.fill();
+
+            // White stripe
+            ctx.fillStyle = "#ffffff";
+            ctx.beginPath();
+            ctx.moveTo(-2 * chevron_width, 0);
+            ctx.lineTo(
+                -2 * chevron_width +
+                    canvas.height / 2 / Math.tan(chevron_angle),
+                canvas.height / 2,
+            );
+            ctx.lineTo(-2 * chevron_width, canvas.height);
+            ctx.fill();
+        },
+    ),
+
+    lesbian5: new Background(
         "Lesbian (5)",
         resetStripesElement,
         drawStripesFunc([
@@ -154,8 +302,61 @@ let allDesigns = {
             "#a50062",
         ]),
     ),
+
+    lesbian7: new Background(
+        "Lesbian (7)",
+        resetStripesElement,
+        drawStripesFunc([
+            "#d62900",
+            "#f07722",
+            "#ff9b55",
+            "#ffffff",
+            "#d462a6",
+            "#b75591",
+            "#a50062",
+        ]),
+    ),
+
+    gay5: new Background(
+        "Gay (5)",
+        resetStripesElement,
+        drawStripesFunc([
+            "#018e71",
+            "#99e9c2",
+            "#ffffff",
+            "#7cafe3",
+            "#3b1379",
+        ]),
+    ),
+
+    gay7: new Background(
+        "Gay (7)",
+        resetStripesElement,
+        drawStripesFunc([
+            "#018e71",
+            "#21cfac",
+            "#99e9c2",
+            "#ffffff",
+            "#7cafe3",
+            "#4f47cc",
+            "#3b1379",
+        ]),
+    ),
+
+    bisexual: new Background(
+        "Bisexual",
+        resetStripesElement,
+        drawStripesFunc([
+            "#d70071",
+            "#d70071",
+            "#9c4e97",
+            "#0035aa",
+            "#0035aa",
+        ]),
+    ),
+
     trans: new Background(
-        "Trans",
+        "Transgender",
         resetStripesElement,
         drawStripesFunc([
             "#5bcffa",
@@ -164,6 +365,30 @@ let allDesigns = {
             "#f5abb9",
             "#5bcffa",
         ]),
+    ),
+
+    nonbinary: new Background(
+        "Non-binary",
+        resetStripesElement,
+        drawStripesFunc(["#fff42f", "#fefefe", "#9c59d1", "#292929"]),
+    ),
+
+    "nonbinary-war": new Background(
+        "Non-binary (wartime)",
+        resetStripesElement,
+        drawStripesFunc(["#fff42f", "#292929", "#9c59d1", "#fefefe"]),
+    ),
+
+    pansexual: new Background(
+        "Pansexual",
+        resetStripesElement,
+        drawStripesFunc(["#ff1b8d", "#ffd900", "#1bb3ff"]),
+    ),
+
+    asexual: new Background(
+        "Asexual",
+        resetStripesElement,
+        drawStripesFunc(["#000000", "#a5a5a5", "#ffffff", "#810081"]),
     ),
 };
 
@@ -221,7 +446,6 @@ function enableCanvas() {
 }
 image.onload = enableCanvas;
 
-//  TODO:  Test how this behaves when saving an image bigger than what the css allows
 function saveCanvas() {
     // Adapted from: https://stackoverflow.com/a/58652379
     let downloadLink = document.createElement("a");
