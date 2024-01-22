@@ -1,12 +1,27 @@
+/** @type {HTMLCanvasElement} */
 let canvas;
-let stripes;
+
+/**
+ * @description The div that holds all the settings and such
+ * @type {HTMLDivElement} */
+let controls;
+
+/** @type {HTMLImageElement} */
 let image = new Image();
+
+/** @type {CanvasRenderingContext2D} */
 let context;
+
+let allDesigns = {
+    whatevre: function (ctx) {
+        // do some drawing;
+    },
+};
 
 function bodyLoad() {
     canvas = document.getElementById("main-canvas");
     context = canvas.getContext("2d");
-    stripes = document.getElementById("controls");
+    controls = document.getElementById("controls");
 
     // From https://stackoverflow.com/a/38968948
     // https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Drag_operations#droptargets
