@@ -366,6 +366,22 @@ let allDesigns = {
         ]),
     ),
 
+    queer: new Background(
+        "Queer",
+        resetStripesElement,
+        drawStripesFunc([
+            "#000000",
+            "#9adaeb",
+            "#00a4e9",
+            "#b6e717",
+            "#ffffff",
+            "#ffca05",
+            "#fd6666",
+            "#ffb0ca",
+            "#000000",
+        ]),
+    ),
+
     nonbinary: new Background(
         "Non-binary",
         resetStripesElement,
@@ -434,6 +450,18 @@ let allDesigns = {
             "#ffffff",
             "#ababab",
             "#000000",
+        ]),
+    ),
+
+    aroace: new Background(
+        "Aroace",
+        resetStripesElement,
+        drawStripesFunc([
+            "#e38d00",
+            "#edce00",
+            "#ffffff",
+            "#62b0dd",
+            "#1a3555",
         ]),
     ),
 };
