@@ -18,46 +18,44 @@ let context;
 
 class Background {
     /**
+     * @name {string} name The pretty name of the background
      * @param {function(): void} setup The function called once when this is selected.
      * @param {function(CanvasRenderingContext2D): void} draw The function called when redrawing.
      */
-    constructor(setup, draw) {
+    constructor(name, setup, draw) {
+        this.name = name;
         this.setup = setup;
         this.draw = draw;
     }
 }
 
-let allDesigns = {
-    none: new Background(
-        () => {
-            stripes.innerHTML = "";
-        },
-        (ctx) => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-        },
-    ),
-    test1: new Background(
-        () => {
-            stripes.innerHTML = "<li>Whatt!! Test 1!?!</li>";
-        },
-        (ctx) => {
-            ctx.fillStyle = "green";
-            // ctx.fill();
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-        },
-    ),
+/**
+ * @param {CanvasRenderingContext2D} ctx The canvas context
+ * @param {Array<string>} stripes Array of ctx.fillStyle values.
+ */
+function drawStripes(ctx, stripes) {
+    let stripeHeight = canvas.height / stripes.length;
+    for (let i = 0; i < stripes.length; i++) {
+        console.log(stripes[i]);
+        ctx.fillStyle = stripes[i];
+        ctx.fillRect(0, stripeHeight * i, canvas.width, stripeHeight);
+    }
+}
 
-    test2: new Background(
-        () => {
-            stripes.innerHTML = "<li>Omg you picked test 2</li>";
-        },
-        (ctx) => {
-            ctx.fillStyle = "red";
-            // ctx.fill();
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-        },
-    ),
+function resetStripesElement() {
+    stripes.innerHTML = "";
+}
+
+let allDesigns = {
+    none: new Background("None", resetStripesElement, (ctx) => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }),
+    trans: new Background("Trans", resetStripesElement, (ctx) => {
+        drawStripes(ctx, ["#5bcffa", "#f5abb9", "white", "#f5abb9", "#5bcffa"]);
+    }),
+
     "custom-image": new Background(
+        "Custom Image",
         () => {
             stripes.innerHTML = "TODO";
         },
@@ -80,6 +78,14 @@ let allDesigns = {
             );
         },
     ),
+
+    "custom-javascript": new Background(
+        "Custom JavaScript",
+        () => {
+            stripes.innerHTML = "TODO AGAIN";
+        },
+        (ctx) => {},
+    ),
 };
 
 function bodyLoad() {
@@ -87,6 +93,13 @@ function bodyLoad() {
     context = canvas.getContext("2d");
     dropdown = document.getElementById("background-select");
     stripes = document.getElementById("stripes");
+
+    // Populate dropdown
+    for (let [id, obj] of Object.entries(allDesigns)) {
+        console.log(allDesigns);
+        console.log(id, obj);
+        dropdown.innerHTML += `<option value="${id.toString()}">${obj.name}</option>`
+    }
 
     // Start with a square canvas bc it looks better.
     canvas.height = canvas.width;
@@ -129,6 +142,7 @@ function enableCanvas() {
 }
 image.onload = enableCanvas;
 
+//  TODO:  Test how this behaves when saving an image bigger than what the css allows
 function saveCanvas() {
     // Adapted from: https://stackoverflow.com/a/58652379
     let downloadLink = document.createElement("a");
