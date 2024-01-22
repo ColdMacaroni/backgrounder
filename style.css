@@ -1,0 +1,52 @@
+body {
+    font-family: "Open Sans", "Arial", sans-serif;
+}
+
+section {
+    background-color: #eeeeee;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px auto;
+}
+
+section#image-input {
+    width: fit-content;
+    text-align: center;
+}
+
+section#image-input input {
+    margin-left: 0.4em;
+}
+
+section#editing {
+    max-width: 75%;
+    display: flex;
+    flex-direction: row;
+}
+
+section#editing canvas#main-canvas {
+    margin: 2em;
+    box-shadow: 0 0 10px 5px #888888;
+    aspect-ratio: 1 / 1;
+    width: 30%;
+}
+
+section#editing canvas#main-canvas.dragover {
+    opacity: 0.5;
+
+    box-shadow: 0 0 10px 5px #888888, inset 0px 0px 50px 10px #333333;
+}
+
+section#editing div#controls {
+    background-color: #dddddd;
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+section#editing div#controls ol#stripes {
+}

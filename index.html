@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Backgrounder</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link href="style.css" rel="stylesheet" />
+        <script src="index.js"></script>
+    </head>
+    <body onload="bodyLoad()">
+        <section id="image-input">
+            <label for="image">Choose your image: </label>
+            <input
+                type="file"
+                id="image"
+                name="image"
+                onchange="imageUploaded(event)"
+                accept="image/png, image/jpeg"
+            />
+        </section>
+        <img src='' id="balls">
+        <section id="editing">
+            <canvas id="main-canvas"></canvas>
+            <div id="controls">
+                <!-- TODO: Add like a magic wand -->
+
+                <!-- Edited by javascript to manage the stripes -->
+                <!-- Each li will have text boxes with a hex code and a width value -->
+                <ol id="stripes"></ol>
+            </div>
+        </section>
+    </body>
+</html>
