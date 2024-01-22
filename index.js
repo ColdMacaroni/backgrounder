@@ -98,7 +98,7 @@ function bodyLoad() {
     for (let [id, obj] of Object.entries(allDesigns)) {
         console.log(allDesigns);
         console.log(id, obj);
-        dropdown.innerHTML += `<option value="${id.toString()}">${obj.name}</option>`
+        dropdown.innerHTML += `<option value="${id.toString()}">${obj.name}</option>`;
     }
 
     // Start with a square canvas bc it looks better.

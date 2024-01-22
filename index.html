@@ -19,15 +19,20 @@
             />
             <p><small>Tip: You can drag and drop into the preview</small></p>
         </section>
-        <img src='' id="balls">
+        <img src="" id="balls" />
         <section id="editing">
             <div id="canvas-holder">
                 <canvas id="main-canvas"></canvas>
-                <button id="save-image" onclick="saveCanvas(event)">Save</button>
+                <button id="save-image" onclick="saveCanvas(event)">
+                    Save
+                </button>
             </div>
             <div id="controls">
                 <label for="background-select">Background: </label>
-                <select id="background-select" onchange="updateDropdown(event)"> </select>
+                <select
+                    id="background-select"
+                    onchange="updateDropdown(event)"
+                ></select>
                 <!-- TODO: Add like a magic wand -->
 
                 <!-- Edited by javascript to manage the stripes -->
