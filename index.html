@@ -19,12 +19,12 @@
             />
             <p><small>Tip: You can drag and drop into the preview</small></p>
         </section>
-        <img src="" id="balls" />
+
         <section id="editing">
             <div id="canvas-holder">
                 <canvas id="main-canvas"></canvas>
                 <button id="save-image" onclick="saveCanvas(event)">
-                    Save
+                    Save Image
                 </button>
             </div>
             <div id="controls">
@@ -33,25 +33,30 @@
                     id="background-select"
                     onchange="updateDropdown(event)"
                 ></select>
-                <!-- TODO: Add like a magic wand -->
-
-                <!-- Edited by javascript to manage the stripes -->
-                <!-- Each li will have text boxes with a hex code and a width value -->
-                <ol id="stripes"></ol>
             </div>
         </section>
-        <section style="width:65%; margin:0 auto">
+
+        <section style="width: 65%; margin: 0 auto">
             <h2>Feature creep</h2>
             <ul>
-                <li>Magic wand transparency (with threshold)</li>
-                <li>Image padding.</li>
+                <li><input type="checkbox" />Display backgrounds as grid</li>
+                <li><input type="checkbox" />Image padding.</li>
                 <li>
+                    <input type="checkbox" />Magic wand transparency (with
+                    threshold)
+                </li>
+                <li>
+                    <input type="checkbox" />
                     <strong>
                         MAKE IT DO A GALLERY THAT YOU CAN CLICK ON RATHER THAN A
                         DROP DOWN MENU.
                     </strong>
                 </li>
-                <li><em>also maybe some transformation settings?</em></li>
+                <li>
+                    <input type="checkbox" /><em
+                        >also maybe some transformation settings?</em
+                    >
+                </li>
             </ul>
         </section>
     </body>
