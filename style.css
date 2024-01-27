@@ -84,12 +84,21 @@ section#background-preview {
     /* From https://stackoverflow.com/a/61240964 */
     grid-template-columns: repeat(6, minmax(0, 1fr));
 }
+
+@media screen and (min-width: 2000px) {
+    section#background-preview {
+        max-width: 80%;
+        grid-template-columns: repeat(10, minmax(0, 1fr));
+    }
+}
+
 @media screen and (max-width: 800px) {
     section#background-preview {
         max-width: 80%;
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 }
+
 @media screen and (max-width: 600px) {
     section#background-preview {
         max-width: unset;

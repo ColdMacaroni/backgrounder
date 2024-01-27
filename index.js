@@ -66,9 +66,7 @@ let allDesigns = {
 
     "custom-image": new Background( //{{{
         "Custom Image",
-        () => {
-            stripes.innerHTML = "TODO";
-        },
+        resetStripesElement,
         (ctx) => {
             ctx.fillStyle = "#ff00dc";
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -91,9 +89,7 @@ let allDesigns = {
 
     "custom-javascript": new Background( //{{{
         "Custom JavaScript",
-        () => {
-            stripes.innerHTML = "TODO AGAIN";
-        },
+        resetStripesElement,
         (ctx) => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = "black";
