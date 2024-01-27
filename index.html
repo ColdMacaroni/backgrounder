@@ -37,25 +37,36 @@
         <section style="width: 65%; margin: 0 auto">
             <h2>Feature creep</h2>
             <ul>
-                <li><input type="checkbox" />Display backgrounds as grid</li>
-                <li><input type="checkbox" />Allow clicking backgrounds to select them</li>
-                <li><input type="checkbox" />Make site responsive</li>
-                <li><input type="checkbox" />Image padding.</li>
                 <li>
-                    <input type="checkbox" />Magic wand transparency (with
-                    threshold)
+                    <input type="checkbox" /><em>transformation settings?</em>
+                    <ul>
+                        <li>
+                            <input type="checkbox" />Image positioning - use two
+                            sliders for x, y.
+                        </li>
+                        <li><input type="checkbox" />Image padding.</li>
+                        <li>
+                            <input type="checkbox" />Magic wand transparency
+                            (with threshold). This can be made by using a
+                            temporary canvas, setting the pixels to transparent
+                            or not depending on the magic wand, then using
+                            source-in to create a canvas with the iamge. See
+                            here:
+                            <a
+                                href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation"
+                                target="_blank"
+                                >MDN</a
+                            >. This canvas can then by converted to an image or
+                            something to be used normally.
+                        </li>
+                    </ul>
                 </li>
                 <li>
-                    <input type="checkbox" />
-                    <strong>
-                        MAKE IT DO A GALLERY THAT YOU CAN CLICK ON RATHER THAN A
-                        DROP DOWN MENU.
-                    </strong>
+                    <input type="checkbox" checked />Display backgrounds as grid
                 </li>
                 <li>
-                    <input type="checkbox" /><em
-                        >also maybe some transformation settings?</em
-                    >
+                    <input type="checkbox" checked />Allow clicking backgrounds
+                    to select them
                 </li>
             </ul>
         </section>
