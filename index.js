@@ -541,6 +541,13 @@ function bodyLoad() {
     }
 
     allDesigns[selectedBackground].button.classList.add("selected-background");
+
+    // When refreshed, the browser might keep an image there. This loads it.
+    /** @type {File?} */
+    const maybeFile = document.getElementById("image-input").files.item(0);
+    if (maybeFile) {
+        loadImage(maybeFile);
+    }
 }
 
 /**
