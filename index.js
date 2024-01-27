@@ -47,7 +47,12 @@ function drawStripes(ctx, stripes) {
         ctx.fillStyle = stripes[i];
 
         // Flooring avoids some weird aliasing artifacts.
-        ctx.fillRect(0, Math.floor(stripeHeight * i), canvas.width, stripeHeight);
+        ctx.fillRect(
+            0,
+            Math.floor(stripeHeight * i),
+            canvas.width,
+            stripeHeight,
+        );
     }
 }
 
