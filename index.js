@@ -587,8 +587,8 @@ function selectBackground(newBackground) {
     selectedBackground = newBackground;
     allDesigns[newBackground].setup();
 
-    // Go back to top
-    document.body.scrollIntoView();
+    // Scroll back up to show the selected option better
+    window.scrollTo(0, 0);
     redrawCanvas();
 }
 
