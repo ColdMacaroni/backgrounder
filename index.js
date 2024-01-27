@@ -41,7 +41,9 @@ function drawStripes(ctx, stripes) {
     for (let i = 0; i < stripes.length; i++) {
         console.log(stripes[i]);
         ctx.fillStyle = stripes[i];
-        ctx.fillRect(0, stripeHeight * i, canvas.width, stripeHeight);
+
+        // Flooring avoids some weird aliasing artifacts.
+        ctx.fillRect(0, Math.floor(stripeHeight * i), canvas.width, stripeHeight);
     }
 }
 
