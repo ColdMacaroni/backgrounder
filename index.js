@@ -16,8 +16,12 @@ let context;
 /** @type {HTMLElement} */
 let backgroundPreview;
 
+/** @type{HTMLDivElement} */
+let extraControls;
+
 /** @type{string} */
 let selectedBackground = "none";
+
 
 class Background {
     /**
@@ -66,44 +70,70 @@ function drawStripesFunc(stripes) {
     };
 }
 
-function resetStripesElement() {
-    // stripes.innerHTML = "";
+function resetControls() {
+    extraControls.innerHTML = "";
 }
 
 /** All backgrounds available by default.
  * @type {Object.<string, Background>}
  */
 let allDesigns = {
-    none: new Background("None", resetStripesElement, (ctx) => {
+    none: new Background("None", resetControls, (ctx) => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     }),
 
     "custom-image": new Background( //{{{
         "Custom Image",
-        resetStripesElement,
-        (ctx) => {
-            ctx.fillStyle = "#ff00dc";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            () => {
+                if (!this["backgroundInput"]){
+                    // If the background input doesn't exist then this probably doesn't either.
+                    const backgroundImage = new Image();
 
-            ctx.fillStyle = "black";
-            ctx.fillRect(
-                canvas.width / 2,
-                0,
-                canvas.width / 2,
-                canvas.height / 2,
-            );
-            ctx.fillRect(
-                0,
-                canvas.height / 2,
-                canvas.width / 2,
-                canvas.height / 2,
-            );
-        },
+                    const backgroundInput = document.createElement("input");
+                    backgroundInput.type = "file";
+                    backgroundInput.id = "background-image-input";
+                    backgroundInput.name = "background";
+                    backgroundInput.onchange = (event) => {
+                        backgroundImage.src = URL.createObjectURL(event.target.files[0]);
+                        redrawCanvas();
+                        setTimeout(redrawCanvas, 500);
+                    };
+
+                    backgroundInput.accept = "image/png, image/jpeg"
+                    this.backgroundInput = backgroundInput;
+                    this.backgroundImage = backgroundImage;
+                }
+
+                extraControls.appendChild(this.backgroundInput);
+            },
+            (ctx) => {
+                const bgfile = this.backgroundImage;
+                if (!bgfile) {
+                    ctx.fillStyle = "#ff00dc";
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                    ctx.fillStyle = "black";
+                    ctx.fillRect(
+                        canvas.width / 2,
+                        0,
+                        canvas.width / 2,
+                        canvas.height / 2,
+                    );
+                    ctx.fillRect(
+                        0,
+                        canvas.height / 2,
+                        canvas.width / 2,
+                        canvas.height / 2,
+                    );
+                } else {
+                    ctx.drawImage(bgfile, 0, 0, canvas.width, canvas.height);
+                }
+            },
     ), //}}}
 
     "custom-javascript": new Background( //{{{
         "Custom JavaScript",
-        resetStripesElement,
+        resetControls,
         (ctx) => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = "black";
@@ -148,7 +178,7 @@ let allDesigns = {
 
     rainbow: new Background(
         "Rainbow",
-        resetStripesElement,
+        resetControls,
         drawStripesFunc([
             "#e60000",
             "#ff8e00",
@@ -161,7 +191,7 @@ let allDesigns = {
 
     "progress-pride-ratio": new Background(
         "Progress Pride (Ratio)",
-        resetStripesElement,
+        resetControls,
         (ctx) => {
             // Background rainbow
             drawStripes(ctx, [
@@ -226,7 +256,7 @@ let allDesigns = {
 
     "progress-pride-angle": new Background(
         "Progress Pride (Angle)",
-        resetStripesElement,
+        resetControls,
         (ctx) => {
             // Background rainbow
             drawStripes(ctx, [
@@ -305,7 +335,7 @@ let allDesigns = {
 
     lesbian5: new Background(
         "Lesbian (5)",
-        resetStripesElement,
+        resetControls,
         drawStripesFunc([
             "#d62900",
             "#ff9b55",
@@ -317,7 +347,7 @@ let allDesigns = {
 
     lesbian7: new Background(
         "Lesbian (7)",
-        resetStripesElement,
+        resetControls,
         drawStripesFunc([
             "#d62900",
             "#f07722",
@@ -331,7 +361,7 @@ let allDesigns = {
 
     gay5: new Background(
         "Gay (5)",
-        resetStripesElement,
+        resetControls,
         drawStripesFunc([
             "#018e71",
             "#99e9c2",
@@ -343,7 +373,7 @@ let allDesigns = {
 
     gay7: new Background(
         "Gay (7)",
-        resetStripesElement,
+        resetControls,
         drawStripesFunc([
             "#018e71",
             "#21cfac",
@@ -357,7 +387,7 @@ let allDesigns = {
 
     bisexual: new Background(
         "Bisexual",
-        resetStripesElement,
+        resetControls,
         drawStripesFunc([
             "#d70071",
             "#d70071",
@@ -369,7 +399,7 @@ let allDesigns = {
 
     trans: new Background(
         "Transgender",
-        resetStripesElement,
+        resetControls,
         drawStripesFunc([
             "#5bcffa",
             "#f5abb9",
@@ -381,7 +411,7 @@ let allDesigns = {
 
     queer: new Background(
         "Queer",
-        resetStripesElement,
+        resetControls,
         drawStripesFunc([
             "#000000",
             "#9adaeb",
@@ -397,17 +427,17 @@ let allDesigns = {
 
     nonbinary: new Background(
         "Non-binary",
-        resetStripesElement,
+        resetControls,
         drawStripesFunc(["#fff42f", "#fefefe", "#9c59d1", "#292929"]),
     ),
 
     "nonbinary-war": new Background(
         "Non-binary (wartime)",
-        resetStripesElement,
+        resetControls,
         drawStripesFunc(["#fff42f", "#292929", "#9c59d1", "#fefefe"]),
     ),
 
-    intersex: new Background("Intersex", resetStripesElement, (ctx) => {
+    intersex: new Background("Intersex", resetControls, (ctx) => {
         ctx.fillStyle = "#ffd800";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -444,19 +474,19 @@ let allDesigns = {
 
     pansexual: new Background(
         "Pansexual",
-        resetStripesElement,
+        resetControls,
         drawStripesFunc(["#ff1b8d", "#ffd900", "#1bb3ff"]),
     ),
 
     asexual: new Background(
         "Asexual",
-        resetStripesElement,
+        resetControls,
         drawStripesFunc(["#000000", "#a5a5a5", "#ffffff", "#810081"]),
     ),
 
     aromantic: new Background(
         "Aromantic",
-        resetStripesElement,
+        resetControls,
         drawStripesFunc([
             "#3aa740",
             "#a8d47a",
@@ -468,7 +498,7 @@ let allDesigns = {
 
     aroace: new Background(
         "Aroace",
-        resetStripesElement,
+        resetControls,
         drawStripesFunc([
             "#e38d00",
             "#edce00",
@@ -483,6 +513,7 @@ function bodyLoad() {
     canvas = document.getElementById("main-canvas");
     context = canvas.getContext("2d");
     stripes = document.getElementById("stripes");
+    extraControls = document.getElementById("extra-controls");
     backgroundPreview = document.getElementById("background-preview");
 
     // Start with a square canvas bc it looks better.
