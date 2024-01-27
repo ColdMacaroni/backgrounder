@@ -19,6 +19,9 @@ let context;
 /** @type {HTMLElement} */
 let backgroundPreview;
 
+/** @type{string} */
+let selectedBackground = "none";
+
 class Background {
     /**
      * @name {string} name The pretty name of the background
@@ -506,7 +509,9 @@ function bodyLoad() {
         dropdown.innerHTML += `<option value="${id.toString()}">${obj.name}</option>`;
 
         // Hodls the background and the name
-        const previewBlock = document.createElement("div");
+        const previewBlock = document.createElement("button");
+        previewBlock.value = id;
+        previewBlock.onclick = () => selectBackground(id);
         previewBlock.classList.add("preview-block");
 
         const newCanvas = document.createElement("canvas");
@@ -565,8 +570,8 @@ function saveCanvas() {
  * Redraws the canvas stack: Background -> User Image -> Overlay?
  */
 function redrawCanvas() {
-    allDesigns[dropdown.value].draw(context);
-    console.log(allDesigns[dropdown.value]);
+    allDesigns[selectedBackground].draw(context);
+
     context.drawImage(image, 0, 0);
 }
 
@@ -578,8 +583,12 @@ function disableCanvas() {
     canvas.width = "30%";
 }
 
-function updateDropdown(_event) {
-    allDesigns[dropdown.value].setup();
+function selectBackground(newBackground) {
+    selectedBackground = newBackground;
+    allDesigns[newBackground].setup();
+
+    // Go back to top
+    document.body.scrollIntoView();
     redrawCanvas();
 }
 
