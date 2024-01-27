@@ -610,6 +610,4 @@ function imageUploaded(event) {
 function loadImage(file) {
     disableCanvas();
     image.src = URL.createObjectURL(file);
-
-    console.log(file.name);
 }
