@@ -22,7 +22,6 @@ let extraControls;
 /** @type{string} */
 let selectedBackground = "none";
 
-
 class Background {
     /**
      * @name {string} name The pretty name of the background
@@ -84,51 +83,53 @@ let allDesigns = {
 
     "custom-image": new Background( //{{{
         "Custom Image",
-            () => {
-                if (!this["backgroundInput"]){
-                    // If the background input doesn't exist then this probably doesn't either.
-                    const backgroundImage = new Image();
+        () => {
+            if (!this["backgroundInput"]) {
+                // If the background input doesn't exist then this probably doesn't either.
+                const backgroundImage = new Image();
 
-                    const backgroundInput = document.createElement("input");
-                    backgroundInput.type = "file";
-                    backgroundInput.id = "background-image-input";
-                    backgroundInput.name = "background";
-                    backgroundInput.onchange = (event) => {
-                        backgroundImage.src = URL.createObjectURL(event.target.files[0]);
-                        redrawCanvas();
-                        setTimeout(redrawCanvas, 500);
-                    };
-
-                    backgroundInput.accept = "image/png, image/jpeg"
-                    this.backgroundInput = backgroundInput;
-                    this.backgroundImage = backgroundImage;
-                }
-
-                extraControls.appendChild(this.backgroundInput);
-            },
-            (ctx) => {
-                const bgfile = this.backgroundImage;
-                if (!bgfile) {
-                    ctx.fillStyle = "#ff00dc";
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                    ctx.fillStyle = "black";
-                    ctx.fillRect(
-                        canvas.width / 2,
-                        0,
-                        canvas.width / 2,
-                        canvas.height / 2,
+                const backgroundInput = document.createElement("input");
+                backgroundInput.type = "file";
+                backgroundInput.id = "background-image-input";
+                backgroundInput.name = "background";
+                backgroundInput.onchange = (event) => {
+                    backgroundImage.src = URL.createObjectURL(
+                        event.target.files[0],
                     );
-                    ctx.fillRect(
-                        0,
-                        canvas.height / 2,
-                        canvas.width / 2,
-                        canvas.height / 2,
-                    );
-                } else {
-                    ctx.drawImage(bgfile, 0, 0, canvas.width, canvas.height);
-                }
-            },
+                    redrawCanvas();
+                    setTimeout(redrawCanvas, 500);
+                };
+
+                backgroundInput.accept = "image/png, image/jpeg";
+                this.backgroundInput = backgroundInput;
+                this.backgroundImage = backgroundImage;
+            }
+
+            extraControls.appendChild(this.backgroundInput);
+        },
+        (ctx) => {
+            const bgfile = this.backgroundImage;
+            if (!bgfile) {
+                ctx.fillStyle = "#ff00dc";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = "black";
+                ctx.fillRect(
+                    canvas.width / 2,
+                    0,
+                    canvas.width / 2,
+                    canvas.height / 2,
+                );
+                ctx.fillRect(
+                    0,
+                    canvas.height / 2,
+                    canvas.width / 2,
+                    canvas.height / 2,
+                );
+            } else {
+                ctx.drawImage(bgfile, 0, 0, canvas.width, canvas.height);
+            }
+        },
     ), //}}}
 
     "custom-javascript": new Background( //{{{
