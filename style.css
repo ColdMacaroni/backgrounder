@@ -106,10 +106,22 @@ section#background-preview {
     }
 }
 
-section#background-preview div.preview-block p {
+section#background-preview .preview-block {
+    padding: 4px;
+    border: none;
+    background-color: unset;
+}
+
+section#background-preview .preview-block p {
     text-align: center;
     margin: 0 5px;
     overflow-x: scroll;
+}
+
+section#background-preview .preview-block.selected-background {
+    background-color: #dddddd;
+    border-radius: 8px;
+    border: 4px solid #cacaca;
 }
 
 section#background-preview canvas {

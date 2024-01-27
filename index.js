@@ -29,6 +29,10 @@ class Background {
         this.name = name;
         this.setup = setup;
         this.draw = draw;
+
+        /**  The button that showcases this background.
+         * @type {HTMLButtonElement} */
+        this.button = undefined;
     }
 }
 
@@ -61,6 +65,9 @@ function resetStripesElement() {
     // stripes.innerHTML = "";
 }
 
+/** All backgrounds available by default.
+ * @type {Object.<string, Background>}
+ */
 let allDesigns = {
     none: new Background("None", resetStripesElement, (ctx) => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -517,6 +524,7 @@ function bodyLoad() {
         previewBlock.appendChild(nameElement);
 
         backgroundPreview.appendChild(previewBlock);
+        obj.button = previewBlock;
 
         // Use the actual computed width to force it to render as a square
         // From https://stackoverflow.com/a/5321487, Ben J's comment.
@@ -531,6 +539,8 @@ function bodyLoad() {
         const newCtx = newCanvas.getContext("2d");
         obj.draw(newCtx);
     }
+
+    allDesigns[selectedBackground].button.classList.add("selected-background");
 }
 
 /**
@@ -579,7 +589,13 @@ function disableCanvas() {
 }
 
 function selectBackground(newBackground) {
+    allDesigns[selectedBackground].button.classList.remove(
+        "selected-background",
+    );
+
     selectedBackground = newBackground;
+
+    allDesigns[selectedBackground].button.classList.add("selected-background");
     allDesigns[newBackground].setup();
 
     // Scroll back up to show the selected option better
