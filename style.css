@@ -73,3 +73,37 @@ section#editing div#controls {
 section#editing div#controls select#controls {
     height: fit-content;
 }
+
+/* ----- Background preview ----- */
+section#background-preview {
+    max-width: 65%;
+    display: grid;
+    gap: 10px;
+
+    /* Force columns to be the same width */
+    /* From https://stackoverflow.com/a/61240964 */
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+@media screen and (max-width: 800px) {
+    section#background-preview {
+        max-width: 80%;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+@media screen and (max-width: 600px) {
+    section#background-preview {
+        max-width: unset;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+section#background-preview div.preview-block p {
+    text-align: center;
+    margin: 0 5px;
+    overflow-x: scroll;
+}
+
+section#background-preview canvas {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+}

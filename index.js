@@ -16,6 +16,9 @@ let dropdown;
 /** @type {CanvasRenderingContext2D} */
 let context;
 
+/** @type {HTMLElement} */
+let backgroundPreview;
+
 class Background {
     /**
      * @name {string} name The pretty name of the background
@@ -53,7 +56,7 @@ function drawStripesFunc(stripes) {
 }
 
 function resetStripesElement() {
-    stripes.innerHTML = "";
+    // stripes.innerHTML = "";
 }
 
 let allDesigns = {
@@ -471,13 +474,7 @@ function bodyLoad() {
     context = canvas.getContext("2d");
     dropdown = document.getElementById("background-select");
     stripes = document.getElementById("stripes");
-
-    // Populate dropdown
-    for (let [id, obj] of Object.entries(allDesigns)) {
-        console.log(allDesigns);
-        console.log(id, obj);
-        dropdown.innerHTML += `<option value="${id.toString()}">${obj.name}</option>`;
-    }
+    backgroundPreview = document.getElementById("background-preview");
 
     // Start with a square canvas bc it looks better.
     canvas.height = canvas.width;
@@ -506,6 +503,38 @@ function bodyLoad() {
 
         loadImage(file);
     };
+
+    // Populate dropdown and background preview
+    for (let [id, obj] of Object.entries(allDesigns)) {
+        // TODO: Remove dropdown?
+        dropdown.innerHTML += `<option value="${id.toString()}">${obj.name}</option>`;
+
+        // Hodls the background and the name
+        const previewBlock = document.createElement("div");
+        previewBlock.classList.add("preview-block");
+
+        const newCanvas = document.createElement("canvas");
+        previewBlock.appendChild(newCanvas);
+
+        const nameElement = document.createElement("p");
+        nameElement.innerText = obj.name;
+        previewBlock.appendChild(nameElement);
+
+        backgroundPreview.appendChild(previewBlock);
+
+        // Use the actual computed width to force it to render as a square
+        // From https://stackoverflow.com/a/5321487, Ben J's comment.
+        const compWidth = window
+            .getComputedStyle(newCanvas)
+            .getPropertyValue("width");
+        newCanvas.setAttribute("height", compWidth);
+
+        // Make the drawable area a square as well so it's no stretched.
+        newCanvas.height = newCanvas.width;
+
+        const newCtx = newCanvas.getContext("2d");
+        obj.draw(newCtx);
+    }
 }
 
 /**
