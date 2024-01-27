@@ -10,9 +10,6 @@ let image = new Image();
 /** @type {HTMLOListElement}*/
 let stripes;
 
-/** @type {HTMLSelectElement} */
-let dropdown;
-
 /** @type {CanvasRenderingContext2D} */
 let context;
 
@@ -471,7 +468,6 @@ let allDesigns = {
 function bodyLoad() {
     canvas = document.getElementById("main-canvas");
     context = canvas.getContext("2d");
-    dropdown = document.getElementById("background-select");
     stripes = document.getElementById("stripes");
     backgroundPreview = document.getElementById("background-preview");
 
@@ -503,12 +499,9 @@ function bodyLoad() {
         loadImage(file);
     };
 
-    // Populate dropdown and background preview
+    // background preview
     for (let [id, obj] of Object.entries(allDesigns)) {
-        // TODO: Remove dropdown?
-        dropdown.innerHTML += `<option value="${id.toString()}">${obj.name}</option>`;
-
-        // Hodls the background and the name
+        // Holds the background and the name
         const previewBlock = document.createElement("button");
         previewBlock.value = id;
         previewBlock.onclick = () => selectBackground(id);
