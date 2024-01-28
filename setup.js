@@ -7,11 +7,45 @@ class UserImage {
          * */
         this.img = new Image();
         this.img.onload = enableCanvas;
+
+        /** Horizontal percentage to draw the center of the image at
+         * @type {number}
+         */
+        this.x = 0.5;
+
+        /** Vertical percentage to draw the center of the image at
+         * @type {number}
+         */
+        this.y = 0.5;
     }
 
     /** @param {CanvasRenderingContext2D} ctx */
     draw(ctx) {
-        ctx.drawImage(this.img, 0, 0);
+        ctx.drawImage(
+            this.img,
+            this.x * canvas.width - this.width / 2,
+            this.y * canvas.height - this.height / 2,
+        );
+    }
+
+    /** @param {number} val */
+    setX(val) {
+        this.x = val;
+        redrawCanvas();
+    }
+
+    /** @param {number} val */
+    setY(val) {
+        this.y = val;
+        redrawCanvas();
+    }
+
+    get width() {
+        return this.img.width;
+    }
+
+    get height() {
+        return this.img.height;
     }
 }
 
