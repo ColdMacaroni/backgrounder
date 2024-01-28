@@ -32,6 +32,22 @@ function bodyLoad() {
     // Start with a square canvas bc it looks better.
     canvas.height = canvas.width;
 
+    // Let user drag and drop
+    setupCanvasDrop();
+
+    // Create the clickable grid of previews
+    setupBackgroundGrid();
+
+    // When refreshed, the browser might keep an image there. This loads it.
+    /** @type {File?} */
+    const maybeFile = document.getElementById("image-input").files.item(0);
+    if (maybeFile) {
+        loadImage(maybeFile);
+    }
+}
+
+/** Lets the user drag and drop and image into the preview to load it. */
+function setupCanvasDrop() {
     // From https://stackoverflow.com/a/38968948
     // https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Drag_operations#droptargets
     // Allow drag and drop image
@@ -56,8 +72,10 @@ function bodyLoad() {
 
         loadImage(file);
     };
+}
 
-    // background preview
+/** Populates the grid with all backgrounds. */
+function setupBackgroundGrid() {
     for (let [id, obj] of Object.entries(allDesigns)) {
         // Holds the background and the name
         const previewBlock = document.createElement("button");
@@ -82,19 +100,13 @@ function bodyLoad() {
             .getPropertyValue("width");
         newCanvas.setAttribute("height", compWidth);
 
-        // Make the drawable area a square as well so it's no stretched.
+        // Make the drawable area a square as well so it's not stretched.
         newCanvas.height = newCanvas.width;
 
         const newCtx = newCanvas.getContext("2d");
         obj.draw(newCtx);
     }
 
+    // Make it clear which is selected by default.
     allDesigns[selectedBackground].button.classList.add("selected-background");
-
-    // When refreshed, the browser might keep an image there. This loads it.
-    /** @type {File?} */
-    const maybeFile = document.getElementById("image-input").files.item(0);
-    if (maybeFile) {
-        loadImage(maybeFile);
-    }
 }
