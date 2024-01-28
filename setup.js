@@ -8,9 +8,6 @@ let canvas;
 let image = new Image();
 image.onload = enableCanvas;
 
-/** @type {HTMLOListElement}*/
-let stripes;
-
 /** @type {CanvasRenderingContext2D} */
 let context;
 
@@ -26,7 +23,6 @@ let selectedBackground = "none";
 function bodyLoad() {
     canvas = document.getElementById("main-canvas");
     context = canvas.getContext("2d");
-    stripes = document.getElementById("stripes");
     extraControls = document.getElementById("extra-controls");
     backgroundPreview = document.getElementById("background-preview");
 
