@@ -15,8 +15,8 @@ function disableCanvas() {
  * Meant to be called after an image is loaded.
  */
 function enableCanvas() {
-    canvas.width = image.width;
-    canvas.height = image.height;
+    canvas.width = userImage.img.width;
+    canvas.height = userImage.img.height;
 
     redrawCanvas();
 }
@@ -45,8 +45,7 @@ function redrawCanvas() {
     context.clearRect(0, 0, canvas.width, canvas.height);
 
     allDesigns[selectedBackground].draw(context);
-
-    context.drawImage(image, 0, 0);
+    userImage.draw(context);
 }
 
 function selectBackground(newBackground) {
@@ -66,7 +65,7 @@ function selectBackground(newBackground) {
 
 function loadImage(file) {
     disableCanvas();
-    image.src = URL.createObjectURL(file);
+    userImage.img.src = URL.createObjectURL(file);
 }
 
 function imageUploaded(event) {

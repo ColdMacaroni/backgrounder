@@ -1,12 +1,25 @@
+/** Used to keep track of the uploaded image for drawing and posititoning. */
+class UserImage {
+    constructor() {
+        /**
+         * Used to download the image given by the user
+         * @type {HTMLImageElement}
+         * */
+        this.img = new Image();
+        this.img.onload = enableCanvas;
+    }
+
+    /** @param {CanvasRenderingContext2D} ctx */
+    draw(ctx) {
+        ctx.drawImage(this.img, 0, 0);
+    }
+}
+
+/** @type{UserImage} */
+const userImage = new UserImage();
+
 /** @type {HTMLCanvasElement} */
 let canvas;
-
-/**
- * @description Used to download the image given by the user
- * @type {HTMLImageElement}
- * */
-let image = new Image();
-image.onload = enableCanvas;
 
 /** @type {CanvasRenderingContext2D} */
 let context;
