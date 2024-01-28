@@ -6,6 +6,7 @@ let canvas;
  * @type {HTMLImageElement}
  * */
 let image = new Image();
+image.onload = enableCanvas;
 
 /** @type {HTMLOListElement}*/
 let stripes;

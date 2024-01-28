@@ -1,38 +1,3 @@
-/**
- * Draws equal sized stripes horizontally in the given context.
- * @param {CanvasRenderingContext2D} ctx The canvas context
- * @param {Array<string>} stripes Array of ctx.fillStyle values.
- */
-function drawStripes(ctx, stripes) {
-    let stripeHeight = canvas.height / stripes.length;
-    for (let i = 0; i < stripes.length; i++) {
-        console.log(stripes[i]);
-        ctx.fillStyle = stripes[i];
-
-        // Flooring avoids some weird aliasing artifacts.
-        ctx.fillRect(
-            0,
-            Math.floor(stripeHeight * i),
-            canvas.width,
-            stripeHeight,
-        );
-    }
-}
-
-/**
- * Convenience higher order function that returns a call to drawStripes
- * @param {Array<string>} stripes Array of ctx.fillStyle values.
- */
-function drawStripesFunc(stripes) {
-    return (ctx) => {
-        drawStripes(ctx, stripes);
-    };
-}
-
-function resetControls() {
-    extraControls.innerHTML = "";
-}
-
 class Background {
     /**
      * @name {string} name The pretty name of the background

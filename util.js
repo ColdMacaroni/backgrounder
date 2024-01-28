@@ -1,3 +1,15 @@
+function resetControls() {
+    extraControls.innerHTML = "";
+}
+
+/**
+ * Meant to be called when an image is reset.
+ * For example: Before a new image has loaded.
+ */
+function disableCanvas() {
+    canvas.width = "30%";
+}
+
 /**
  * Updates the canvas's width and height with the image's and redraws.
  * Meant to be called after an image is loaded.
@@ -8,7 +20,6 @@ function enableCanvas() {
 
     redrawCanvas();
 }
-image.onload = enableCanvas;
 
 function saveCanvas() {
     // Adapted from: https://stackoverflow.com/a/58652379
@@ -38,14 +49,6 @@ function redrawCanvas() {
     context.drawImage(image, 0, 0);
 }
 
-/**
- * Meant to be called when an image is reset.
- * For example: Before a new image has loaded.
- */
-function disableCanvas() {
-    canvas.width = "30%";
-}
-
 function selectBackground(newBackground) {
     allDesigns[selectedBackground].button.classList.remove(
         "selected-background",
@@ -61,11 +64,42 @@ function selectBackground(newBackground) {
     redrawCanvas();
 }
 
+function loadImage(file) {
+    disableCanvas();
+    image.src = URL.createObjectURL(file);
+}
+
 function imageUploaded(event) {
     loadImage(event.target.files[0]);
 }
 
-function loadImage(file) {
-    disableCanvas();
-    image.src = URL.createObjectURL(file);
+/**
+ * Draws equal sized stripes horizontally in the given context.
+ * @param {CanvasRenderingContext2D} ctx The canvas context
+ * @param {Array<string>} stripes Array of ctx.fillStyle values.
+ */
+function drawStripes(ctx, stripes) {
+    let stripeHeight = canvas.height / stripes.length;
+    for (let i = 0; i < stripes.length; i++) {
+        console.log(stripes[i]);
+        ctx.fillStyle = stripes[i];
+
+        // Flooring avoids some weird aliasing artifacts.
+        ctx.fillRect(
+            0,
+            Math.floor(stripeHeight * i),
+            canvas.width,
+            stripeHeight,
+        );
+    }
+}
+
+/**
+ * Convenience higher order function that returns a call to drawStripes
+ * @param {Array<string>} stripes Array of ctx.fillStyle values.
+ */
+function drawStripesFunc(stripes) {
+    return (ctx) => {
+        drawStripes(ctx, stripes);
+    };
 }
