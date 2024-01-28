@@ -33,15 +33,14 @@
                 <label>
                     X Position:
                     <input
+                    type="range"
+                    name="xPositionSlider"
+                        id="x-pos-slider"
                         list="slider-notches"
-                        name="xPositionSlider"
                         min="-0.5"
                         max="1.5"
                         value="0.5"
                         step="0.01"
-                        type="range"
-                        id="x-pos-slider"
-                        oninput="userImage.setX(event.target.value)"
                     />
                     <input
                         type="number"
@@ -51,22 +50,20 @@
                         max="1.5"
                         value="0.5"
                         step="0.01"
-                        oninput="userImage.setX(event.target.value)"
                     />
                 </label>
                 <br />
                 <label>
                     Y Position:
                     <input
+                    type="range"
+                    name="yPositionSlider"
+                    id="y-pos-slider"
                         list="slider-notches"
-                        name="yPositionSlider"
                         min="-0.5"
                         max="1.5"
                         value="0.5"
                         step="0.01"
-                        type="range"
-                        id="y-pos-slider"
-                        oninput="userImage.setY(event.target.value)"
                     />
                     <input
                         type="number"
@@ -76,7 +73,6 @@
                         max="1.5"
                         value="0.5"
                         step="0.01"
-                        oninput="userImage.setY(event.target.value)"
                     />
                 </label>
                 <datalist id="slider-notches">

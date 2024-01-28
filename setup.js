@@ -17,6 +17,49 @@ class UserImage {
          * @type {number}
          */
         this.y = 0.5;
+
+        /**
+         * @type {Object.<string, HTMLInputElement?>}
+         */
+        this.inputs = {
+            xPosSlider: null,
+            yPosSlider: null,
+            xPosNumber: null,
+            yPosNumber: null,
+        };
+    }
+
+    /**
+     * Stores the necessary inputs in this.inputs and sets the event handlers.
+     */
+    setupInputs() {
+        this.inputs.xPosSlider = document.getElementById("x-pos-slider");
+        this.inputs.yPosSlider = document.getElementById("y-pos-slider");
+        this.inputs.xPosNumber = document.getElementById("x-pos-number");
+        this.inputs.yPosNumber = document.getElementById("y-pos-number");
+
+        this.inputs.xPosSlider.oninput = (e) => this.changeX(e.target.value);
+        this.inputs.yPosSlider.oninput = (e) => this.changeY(e.target.value);
+        this.inputs.xPosNumber.oninput = (e) => {
+            if (this.canChangeNumber(e)) {
+                this.changeX(e.target.value);
+            }
+        };
+        this.inputs.yPosNumber.oninput = (e) => {
+            if (this.canChangeNumber(e)) {
+                this.changeY(e.target.value);
+            }
+        };
+    }
+
+    /** Makes it so the number textfield doesn't delete the decimal point. */
+    canChangeNumber(event) {
+        const v = event.target.value;
+        return !(
+            Number.isNaN(+v) ||
+            Number.isNaN(+event.data) ||
+            (v.length == 1 && event.data == null)
+        );
     }
 
     /** @param {CanvasRenderingContext2D} ctx */
@@ -29,14 +72,22 @@ class UserImage {
     }
 
     /** @param {number} val */
-    setX(val) {
+    changeX(val) {
         this.x = val;
+
+        this.inputs.xPosNumber.value = val;
+        this.inputs.xPosSlider.value = val;
+
         redrawCanvas();
     }
 
     /** @param {number} val */
-    setY(val) {
+    changeY(val) {
         this.y = val;
+
+        this.inputs.yPosNumber.value = val;
+        this.inputs.yPosSlider.value = val;
+
         redrawCanvas();
     }
 
@@ -81,6 +132,9 @@ function bodyLoad() {
 
     // Create the clickable grid of previews
     setupBackgroundGrid();
+
+    // Grab the transformation slider and number inputs, then set their events.
+    userImage.setupInputs();
 
     // When refreshed, the browser might keep an image there. This loads it.
     /** @type {File?} */
