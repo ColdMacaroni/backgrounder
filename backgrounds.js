@@ -1,13 +1,18 @@
 class Background {
     /**
      * @name {string} name The pretty name of the background
-     * @param {function(): void} setup The function called once when this is selected.
-     * @param {function(CanvasRenderingContext2D): void} draw The function called when redrawing.
+     * @param {undefined | function(): void} setup The function called once when this is selected.
+     * @param {undefined | function(CanvasRenderingContext2D): void} draw The function called when redrawing.
      */
     constructor(name, setup, draw) {
         this.name = name;
-        this.setup = setup;
-        this.draw = draw;
+
+        if (setup) {
+            this.setup = setup;
+        }
+        if (draw) {
+            this.draw = draw;
+        }
 
         /**  The button that showcases this background.
          * @type {HTMLButtonElement} */
@@ -21,15 +26,7 @@ class BackgroundImage extends Background {
      */
     constructor(name) {
         // Super overwrites setup and draw function names.
-        super(
-            name,
-            () => {
-                this.doSetup();
-            },
-            (ctx) => {
-                this.doDraw(ctx);
-            },
-        );
+        super(name);
 
         /**
          * Used to download the uploaded image.
@@ -54,12 +51,12 @@ class BackgroundImage extends Background {
     }
 
     /** Creates the file input */
-    doSetup() {
+    setup() {
         extraControls.appendChild(this.input);
     }
 
     /** Draws either a missing texture or the given image. */
-    doDraw(ctx) {
+    draw(ctx) {
         const bgfile = this.input.files[0];
         if (!bgfile) {
             ctx.fillStyle = "#ff00dc";
