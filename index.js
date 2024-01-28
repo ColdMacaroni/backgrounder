@@ -87,6 +87,7 @@ let allDesigns = {
             if (!this["backgroundInput"]) {
                 // If the background input doesn't exist then this probably doesn't either.
                 const backgroundImage = new Image();
+                backgroundImage.onload = redrawCanvas;
 
                 const backgroundInput = document.createElement("input");
                 backgroundInput.type = "file";
@@ -96,8 +97,6 @@ let allDesigns = {
                     backgroundImage.src = URL.createObjectURL(
                         event.target.files[0],
                     );
-                    redrawCanvas();
-                    setTimeout(redrawCanvas, 500);
                 };
 
                 backgroundInput.accept = "image/png, image/jpeg";
@@ -619,6 +618,9 @@ function saveCanvas() {
  * Redraws the canvas stack: Background -> User Image -> Overlay?
  */
 function redrawCanvas() {
+    // Removes artifacts from previous backgrounds.
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
     allDesigns[selectedBackground].draw(context);
 
     context.drawImage(image, 0, 0);
