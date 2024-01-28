@@ -81,7 +81,6 @@ function imageUploaded(event) {
 function drawStripes(ctx, stripes) {
     let stripeHeight = canvas.height / stripes.length;
     for (let i = 0; i < stripes.length; i++) {
-        console.log(stripes[i]);
         ctx.fillStyle = stripes[i];
 
         // Flooring avoids some weird aliasing artifacts.
