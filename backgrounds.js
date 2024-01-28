@@ -15,6 +15,75 @@ class Background {
     }
 }
 
+class BackgroundImage extends Background {
+    /**
+     * @name {string} name The pretty name of the background
+     */
+    constructor(name) {
+        // Super overwrites setup and draw function names.
+        super(
+            name,
+            () => {
+                this.doSetup();
+            },
+            (ctx) => {
+                this.doDraw(ctx);
+            },
+        );
+
+        /**
+         * Used to download the uploaded image.
+         * @type {Image}
+         */
+        this.img = new Image();
+        this.img.onload = redrawCanvas;
+
+        /**
+         * The element used to upload a background
+         * @type {HTMLInputElement}
+         */
+        this.input = document.createElement("input");
+        this.input.type = "file";
+        this.input.id = "background-image-input";
+        this.input.name = "background";
+        this.input.onchange = (event) => {
+            this.img.src = URL.createObjectURL(event.target.files[0]);
+        };
+
+        this.input.accept = "image/png, image/jpeg";
+    }
+
+    /** Creates the file input */
+    doSetup() {
+        extraControls.appendChild(this.input);
+    }
+
+    /** Draws either a missing texture or the given image. */
+    doDraw(ctx) {
+        const bgfile = this.input.files[0];
+        if (!bgfile) {
+            ctx.fillStyle = "#ff00dc";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "black";
+            ctx.fillRect(
+                canvas.width / 2,
+                0,
+                canvas.width / 2,
+                canvas.height / 2,
+            );
+            ctx.fillRect(
+                0,
+                canvas.height / 2,
+                canvas.width / 2,
+                canvas.height / 2,
+            );
+        } else {
+            ctx.drawImage(this.img, 0, 0, canvas.width, canvas.height);
+        }
+    }
+}
+
 /** All backgrounds available by default.
  * @type {Object.<string, Background>}
  */
@@ -23,55 +92,7 @@ let allDesigns = {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     }),
 
-    "custom-image": new Background( //{{{
-        "Custom Image",
-        () => {
-            if (!this["backgroundInput"]) {
-                // If the background input doesn't exist then this probably doesn't either.
-                const backgroundImage = new Image();
-                backgroundImage.onload = redrawCanvas;
-
-                const backgroundInput = document.createElement("input");
-                backgroundInput.type = "file";
-                backgroundInput.id = "background-image-input";
-                backgroundInput.name = "background";
-                backgroundInput.onchange = (event) => {
-                    backgroundImage.src = URL.createObjectURL(
-                        event.target.files[0],
-                    );
-                };
-
-                backgroundInput.accept = "image/png, image/jpeg";
-                this.backgroundInput = backgroundInput;
-                this.backgroundImage = backgroundImage;
-            }
-
-            extraControls.appendChild(this.backgroundInput);
-        },
-        (ctx) => {
-            const bgfile = this.backgroundImage;
-            if (!bgfile) {
-                ctx.fillStyle = "#ff00dc";
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                ctx.fillStyle = "black";
-                ctx.fillRect(
-                    canvas.width / 2,
-                    0,
-                    canvas.width / 2,
-                    canvas.height / 2,
-                );
-                ctx.fillRect(
-                    0,
-                    canvas.height / 2,
-                    canvas.width / 2,
-                    canvas.height / 2,
-                );
-            } else {
-                ctx.drawImage(bgfile, 0, 0, canvas.width, canvas.height);
-            }
-        },
-    ), //}}}
+    "custom-image": new BackgroundImage("Custom Image"),
 
     "custom-javascript": new Background( //{{{
         "Custom JavaScript",
