@@ -84,13 +84,17 @@ class UserImage {
 
     /** @param {CanvasRenderingContext2D} ctx */
     draw(ctx) {
+        // save transform matrix so we can reset later.
+        const originalMatrix = ctx.getTransform();
+
         const dX = this.x * canvas.width;
         const dY = this.y * canvas.height;
+
         ctx.translate(dX, dY);
         ctx.rotate(this.angle);
         ctx.drawImage(this.img, -this.width / 2, -this.height / 2);
-        ctx.rotate(-this.angle);
-        ctx.translate(-dX, -dY);
+
+        ctx.setTransform(originalMatrix);
     }
 
     /** @param{number} val The angle in *degrees* */
