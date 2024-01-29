@@ -110,6 +110,57 @@
                     <option value="180"></option>
                     <option value="270"></option>
                 </datalist>
+
+                <br />
+
+                <label>
+                    X Scale:
+                    <input
+                        type="range"
+                        name="xScaleSlider"
+                        id="x-scale-slider"
+                        list="scale-notches"
+                        min="-2"
+                        max="2"
+                        value="1"
+                        step="0.01"
+                    />
+                    <input
+                        type="number"
+                        name="xScaleNumber"
+                        id="x-scale-number"
+                        value="1"
+                        step="0.01"
+                    />
+                </label>
+
+                <br />
+
+                <label>
+                    Y Scale:
+                    <input
+                        type="range"
+                        name="yScaleSlider"
+                        id="y-scale-slider"
+                        list="scale-notches"
+                        min="-2"
+                        max="2"
+                        value="1"
+                        step="0.01"
+                    />
+                    <input
+                        type="number"
+                        name="yScaleNumber"
+                        id="y-scale-number"
+                        value="1"
+                        step="0.01"
+                    />
+                </label>
+
+                <datalist id="scale-notches">
+                    <option value="1"></option>
+                    <option value="-1"></option>
+                </datalist>
                 <div id="extra-controls"></div>
             </div>
         </section>

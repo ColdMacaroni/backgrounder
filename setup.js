@@ -23,6 +23,16 @@ class UserImage {
          */
         this.angle = 0;
 
+        /** Scale on X axis
+         * @type {number}
+         */
+        this.xScale = 1;
+
+        /** Scale on Y axis
+         * @type {number}
+         */
+        this.yScale = 1;
+
         /**
          * @type {Object.<string, HTMLInputElement?>}
          */
@@ -70,6 +80,25 @@ class UserImage {
                 this.changeAngle(e.target.value);
             }
         };
+
+        // -- Scale
+        this.inputs.xScaleSlider = document.getElementById("x-scale-slider");
+        this.inputs.yScaleSlider = document.getElementById("y-scale-slider");
+        this.inputs.xScaleNumber = document.getElementById("x-scale-number");
+        this.inputs.yScaleNumber = document.getElementById("y-scale-number");
+
+        this.inputs.xScaleSlider.oninput = (e) => this.changeXScale(e.target.value);
+        this.inputs.yScaleSlider.oninput = (e) => this.changeYScale(e.target.value);
+        this.inputs.xScaleNumber.oninput = (e) => {
+            if (this.canChangeNumber(e)) {
+                this.changeXScale(e.target.value);
+            }
+        };
+        this.inputs.yScaleNumber.oninput = (e) => {
+            if (this.canChangeNumber(e)) {
+                this.changeYScale(e.target.value);
+            }
+        };
     }
 
     /** Makes it so the number textfield doesn't delete the decimal point. */
@@ -92,6 +121,7 @@ class UserImage {
 
         ctx.translate(dX, dY);
         ctx.rotate(this.angle);
+        ctx.scale(this.xScale, this.yScale);
         ctx.drawImage(this.img, -this.width / 2, -this.height / 2);
 
         ctx.setTransform(originalMatrix);
@@ -123,6 +153,26 @@ class UserImage {
 
         this.inputs.yPosNumber.value = val;
         this.inputs.yPosSlider.value = val;
+
+        redrawCanvas();
+    }
+
+    /** @param {number} val */
+    changeXScale(val) {
+        this.xScale = val;
+
+        this.inputs.xScaleNumber.value = val;
+        this.inputs.xScaleSlider.value = val;
+
+        redrawCanvas();
+    }
+
+    /** @param {number} val */
+    changeYScale(val) {
+        this.yScale = val;
+
+        this.inputs.yScaleNumber.value = val;
+        this.inputs.yScaleSlider.value = val;
 
         redrawCanvas();
     }
