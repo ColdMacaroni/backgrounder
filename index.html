@@ -52,7 +52,9 @@
                         step="0.01"
                     />
                 </label>
+
                 <br />
+
                 <label>
                     Y Position:
                     <input
@@ -77,6 +79,36 @@
                 </label>
                 <datalist id="position-notches">
                     <option value="0.5"></option>
+                </datalist>
+
+                <br />
+
+                <label>
+                    Rotation:
+                    <input
+                        type="range"
+                        name="rotationSlider"
+                        id="rotation-slider"
+                        list="rotation-notches"
+                        min="0"
+                        max="360"
+                        value="0"
+                        step="0.01"
+                    />
+                    <input
+                        type="number"
+                        name="rotationNumber"
+                        id="rotation-number"
+                        min="0"
+                        max="360"
+                        value="0"
+                        step="0.01"
+                    />
+                </label>
+                <datalist id="rotation-notches">
+                    <option value="90"></option>
+                    <option value="180"></option>
+                    <option value="270"></option>
                 </datalist>
                 <div id="extra-controls"></div>
             </div>

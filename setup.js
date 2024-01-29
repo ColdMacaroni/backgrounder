@@ -18,6 +18,11 @@ class UserImage {
          */
         this.y = 0.5;
 
+        /** Angle of rotation of the image. Clockwise, radians.
+         * @type {number}
+         */
+        this.angle = 0;
+
         /**
          * @type {Object.<string, HTMLInputElement?>}
          */
@@ -26,6 +31,8 @@ class UserImage {
             yPosSlider: null,
             xPosNumber: null,
             yPosNumber: null,
+            rotationSlider: null,
+            rotationNumber: null,
         };
     }
 
@@ -33,6 +40,7 @@ class UserImage {
      * Stores the necessary inputs in this.inputs and sets the event handlers.
      */
     setupInputs() {
+        // -- Position
         this.inputs.xPosSlider = document.getElementById("x-pos-slider");
         this.inputs.yPosSlider = document.getElementById("y-pos-slider");
         this.inputs.xPosNumber = document.getElementById("x-pos-number");
@@ -50,6 +58,18 @@ class UserImage {
                 this.changeY(e.target.value);
             }
         };
+
+        // -- Rotation
+        this.inputs.rotationSlider = document.getElementById("rotation-slider");
+        this.inputs.rotationNumber = document.getElementById("rotation-number");
+
+        this.inputs.rotationSlider.oninput = (e) =>
+            this.changeAngle(e.target.value);
+        this.inputs.rotationNumber.oninput = (e) => {
+            if (this.canChangeNumber(e)) {
+                this.changeAngle(e.target.value);
+            }
+        };
     }
 
     /** Makes it so the number textfield doesn't delete the decimal point. */
@@ -64,11 +84,23 @@ class UserImage {
 
     /** @param {CanvasRenderingContext2D} ctx */
     draw(ctx) {
-        ctx.drawImage(
-            this.img,
-            this.x * canvas.width - this.width / 2,
-            this.y * canvas.height - this.height / 2,
-        );
+        const dX = this.x * canvas.width;
+        const dY = this.y * canvas.height;
+        ctx.translate(dX, dY);
+        ctx.rotate(this.angle);
+        ctx.drawImage(this.img, -this.width / 2, -this.height / 2);
+        ctx.rotate(-this.angle);
+        ctx.translate(-dX, -dY);
+    }
+
+    /** @param{number} val The angle in *degrees* */
+    changeAngle(val) {
+        this.angle = val * (Math.PI / 180);
+
+        this.inputs.rotationNumber.value = val;
+        this.inputs.rotationSlider.value = val;
+
+        redrawCanvas();
     }
 
     /** @param {number} val */
