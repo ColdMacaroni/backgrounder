@@ -25,7 +25,6 @@ class BackgroundImage extends Background {
      * @name {string} name The pretty name of the background
      */
     constructor(name) {
-        // Super overwrites setup and draw function names.
         super(name);
 
         /**
