@@ -1,6 +1,6 @@
 * {
     /* I don't know if it's just a me thing but the scroll bars don't show up ?? */
-    scrollbar-color: lightgray white;
+    scrollbar-color: lightgray transparent;
 }
 
 body {
