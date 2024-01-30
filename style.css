@@ -1,3 +1,8 @@
+* {
+    /* I don't know if it's just a me thing but the scroll bars don't show up ?? */
+    scrollbar-color: lightgray white;
+}
+
 body {
     font-family: "Open Sans", "Arial", sans-serif;
 }
@@ -149,4 +154,8 @@ section#background-preview .preview-block.selected-background canvas {
 section#background-preview canvas {
     aspect-ratio: 1 / 1;
     width: 100%;
+}
+
+textarea#javascript-input {
+    height: 20em;
 }

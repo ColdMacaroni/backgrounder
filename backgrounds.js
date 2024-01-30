@@ -91,6 +91,7 @@ class BackgroundJavaScript extends Background {
          * @type {HTMLTextAreaElement}
          */
         this.textarea = document.createElement("textarea");
+        this.textarea.cols = "80";
 
         // Disable things that might be annoying when typing
         this.textarea.spellcheck = false;
