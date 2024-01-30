@@ -44,8 +44,11 @@ function redrawCanvas() {
     // Removes artifacts from previous backgrounds.
     context.clearRect(0, 0, canvas.width, canvas.height);
 
-    allDesigns[selectedBackground].draw(context);
+    // Drawn background can return an overlay to be drawn over the image.
+    const overlay = allDesigns[selectedBackground].draw(context);
     userImage.draw(context);
+
+    overlay?.call(this, context);
 }
 
 function selectBackground(newBackground) {

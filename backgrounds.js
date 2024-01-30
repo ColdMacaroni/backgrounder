@@ -2,7 +2,7 @@ class Background {
     /**
      * @name {string} name The pretty name of the background
      * @param {undefined | function(): void} setup The function called once when this is selected.
-     * @param {undefined | function(CanvasRenderingContext2D): void} draw The function called when redrawing.
+     * @param {undefined | function(CanvasRenderingContext2D): Function | undefined} draw The function called when redrawing.
      */
     constructor(name, setup, draw) {
         this.name = name;
@@ -80,6 +80,108 @@ class BackgroundImage extends Background {
     }
 }
 
+class BackgroundJavaScript extends Background {
+    /**
+     * @name {string} name The pretty name of the background
+     */
+    constructor(name) {
+        super(name);
+
+        /** The element where the user can write their code.
+         * @type {HTMLTextAreaElement}
+         */
+        this.textarea = document.createElement("textarea");
+
+        // Disable things that might be annoying when typing
+        this.textarea.spellcheck = false;
+        this.textarea.autocapitalize = "off";
+        this.textarea.autocomplete = "off";
+        this.textarea.id = "javascript-input";
+
+        this.evalButton = document.createElement("button");
+        this.evalButton.innerText = "Evaluate";
+        this.evalButton.onclick = redrawCanvas;
+
+        // Show a message explaining how the textarea works.
+        this.textarea.value = `/* DANGER: NEVER PASTE ANY CODE HERE. SPECIALLY IF YOU DON'T KNOW *EXACTLY*
+ *         WHAT IT DOES. IF YOU DO, I AM NOT RESPONSIBLE FOR WHAT MAY HAPPEN TO
+ *         YOUR PRIVATE DATA, ACCOUNTS, ETC.
+ *       <======================================================================>
+ * I know it's a scary warning, but as long as you write things yourself it
+ * should be fine. Any code in here gets evaluated as a function that takes a
+ * single argument called 'ctx'. This is a CanvasRenderingContext2D object.
+ * See: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
+ *
+ * There's a convenience function you can call to create striped flags:
+ * 'drawStripes'. Call it like 'drawStripes(ctx, list_of_colours)'.
+ * For example:
+ * drawStripes(ctx, ["rgb(0 145 2)", "#a5a5a5", "black",
+ *                   "#ffaaff10", "rgb(132 34 13 / 10%)"])'
+ * It works by setting ctx.fillStyle to each value of the list.
+ *
+ * Some globals that might interest you:
+ *  - 'canvas': The preview canvas.
+ *  - 'userImage': The object in charge of drawing the image you uploaded.
+ *  - 'allDesigns': Stores all backgrounds. E.g. allDesigns.trans.draw(ctx)
+ *                  will draw a trans flag.
+ *
+ * If you return a function, it'll be called after the uploaded image is drawn.
+ * For example, this will draw a :3 over the image:
+ * return (ctx) => {
+ *     ctx.font = \`\${canvas.height}px serif\`;
+ *     ctx.fillText(":3", canvas.width * 0.1, canvas.height * 0.8)
+ * };
+ *
+ * If you think your design could be used by other people, please open an issue
+ * or pull request with the code you've written here! Enjoy!
+ */
+// The following is a little sample, feel free to delete :)
+ctx.fillStyle = "#f0dc4e";
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+ctx.fillStyle = "#2e302c";
+ctx.font = \`700 \${canvas.width * 0.58}px Futura, "Trebuchet MS", Arial, sans-serif\`;
+ctx.fillText("JS", canvas.width * 0.3, canvas.height * 0.9);
+
+
+// Draws the speech bubble over the image
+return (ctx) => {
+    ctx.fillStyle = "white";
+    ctx.lineWidth = Math.max(1, canvas.width * 0.0001, canvas.height * 0.0001);
+    ctx.beginPath();
+    ctx.moveTo(canvas.width * 0.05, canvas.height * 0.05);
+    ctx.lineTo(canvas.width * 0.05, canvas.height * 0.2);
+    ctx.lineTo(canvas.width * 0.25, canvas.height * 0.2);
+    ctx.lineTo(canvas.width * 0.45, canvas.height * 0.33); // Speech marker
+    ctx.lineTo(canvas.width * 0.28, canvas.height * 0.2);
+    ctx.lineTo(canvas.width * 0.3, canvas.height * 0.2);
+    ctx.lineTo(canvas.width * 0.3, canvas.height * 0.05);
+    ctx.lineTo(canvas.width * 0.05, canvas.height * 0.05);
+    ctx.fill();
+    ctx.stroke();
+
+    const maxWidth = canvas.width * 0.23;
+    ctx.font = \`\${canvas.height * 0.04}px serif\`;
+    ctx.fillStyle = "black";
+    ctx.fillText("I love", canvas.width * 0.06, canvas.height * 0.11, maxWidth);
+    ctx.fillText("javascript :3", canvas.width * 0.06, canvas.height * 0.16, maxWidth);
+}`;
+    }
+
+    /** Creates the file input */
+    setup() {
+        extraControls.appendChild(this.textarea);
+        extraControls.appendChild(this.evalButton);
+    }
+
+    /** Draws either a missing texture or the given image. */
+    draw(ctx) {
+        const usrFun = new Function("ctx", this.textarea.value);
+
+        return usrFun(ctx);
+    }
+}
+
 /** All backgrounds available by default.
  * @type {Object.<string, Background>}
  */
@@ -90,7 +192,7 @@ let allDesigns = {
 
     "custom-image": new BackgroundImage("Custom Image"),
 
-    "custom-javascript": new Background( //{{{
+    "custom-javascript": new BackgroundJavaScript( //{{{
         "Custom JavaScript",
         resetControls,
         (ctx) => {

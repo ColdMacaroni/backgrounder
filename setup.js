@@ -288,7 +288,8 @@ function setupBackgroundGrid() {
         newCanvas.height = newCanvas.width;
 
         const newCtx = newCanvas.getContext("2d");
-        obj.draw(newCtx);
+        const ret = obj.draw(newCtx);
+        ret?.call(this, newCtx);
     }
 
     // Make it clear which is selected by default.
