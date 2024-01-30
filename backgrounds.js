@@ -51,6 +51,7 @@ class BackgroundImage extends Background {
 
     /** Creates the file input */
     setup() {
+        resetControls();
         extraControls.appendChild(this.input);
     }
 
@@ -171,6 +172,7 @@ return (ctx) => {
 
     /** Creates the file input */
     setup() {
+        resetControls();
         extraControls.appendChild(this.textarea);
         extraControls.appendChild(this.evalButton);
     }
