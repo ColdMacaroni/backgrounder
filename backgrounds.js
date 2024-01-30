@@ -126,6 +126,8 @@ class BackgroundJavaScript extends Background {
  *  - 'userImage': The object in charge of drawing the image you uploaded.
  *  - 'allDesigns': Stores all backgrounds. E.g. allDesigns.trans.draw(ctx)
  *                  will draw a trans flag.
+ *                  You can use 'allDesigns["custom-image"].draw(ctx)' to
+ *                  to draw the image in the "Custom Image" background.
  *
  * If you return a function, it'll be called after the uploaded image is drawn.
  * For example, this will draw a :3 over the image:
