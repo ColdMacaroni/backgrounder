@@ -64,15 +64,35 @@ section#editing canvas#main-canvas.dragover {
         inset 0px 0px 50px 10px #333333;
 }
 
+/* ----- Controls ----- */
 section#editing div#controls {
     background-color: #dddddd;
     padding: 10px;
     border-radius: 10px;
-    width: 100%;
 
-    /* display: grid; */
-    /* grid-template-columns: 1fr 1fr; */
+    width: 100%;
+    display: grid;
+    row-gap: 10px;
+    grid-template-columns: 1fr;
+    height: fit-content;
     /* gap: 10px; */
+}
+
+/* Inputs and such are inside of a label. */
+section#editing div#controls > label {
+    width: fit-content;
+    display: grid;
+    grid-template-columns: 0.5fr auto 0.5fr;
+    gap: 10px;
+    align-content: center;
+}
+
+/* These behave a little strangely, so some tweaking is needed.
+ * For example, they don't care about the template columns */
+section#editing div#controls input[type="number"] {
+    margin: auto 0;
+    height: min-content;
+    width: 100%;
 }
 
 section#editing div#controls select#controls {
@@ -119,7 +139,8 @@ section#background-preview .preview-block p {
     overflow-x: scroll;
 }
 
-section#background-preview .preview-block:hover {
+section#background-preview .preview-block:hover,
+section#background-preview .preview-block:focus {
     /* Make sure it shows up above the other ones, otherwise it looks weird. */
     transition:
         transform 0.2s ease-out,
@@ -134,7 +155,8 @@ section#background-preview .preview-block:hover {
     padding: 0;
 }
 
-section#background-preview .preview-block:hover canvas {
+section#background-preview .preview-block:hover canvas,
+section#background-preview .preview-block:focus canvas {
     width: 100%;
     border-top-right-radius: 4px;
     border-top-left-radius: 4px;
